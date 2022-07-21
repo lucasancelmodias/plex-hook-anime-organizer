@@ -6,7 +6,8 @@ import { Plex, Media, Library } from './Plex';
 import { Anilist } from './Anilist';
 
 dotenv.config();
-const upload = multer({dest: '/temp/'});
+const store = multer.memoryStorage();
+const upload = multer({ storage: store });
 const app: Express = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());

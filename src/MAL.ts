@@ -36,7 +36,7 @@ export class MAL {
 
 		const data = new URLSearchParams();
 		data.append('grant_type', 'refresh_token')
-		data.append('refresh_token', savedConfig.refresh_token);
+		data.append('refresh_token', savedConfig().refresh_token);
 		data.append('client_id', process.env.MAL_CLIENT_ID?.toString() || '');
 		data.append('client_secret', process.env.MAL_CLIENT_SECRET?.toString() || '');
 		const resdata = await axios.post(url, data);
@@ -53,7 +53,7 @@ export class MAL {
 		}
 		const url = `${process.env.MAL_BASE_URL}${'/anime?'}${query.build()}`;
 
-		return axios.get(url, {headers: {'Authorization': `Bearer ${savedConfig.access_token}`}});
+		return axios.get(url, {headers: {'Authorization': `Bearer ${savedConfig().access_token}`}});
 	}
 
 	updateAnimeStatus(id : number, status : string, num_watched_episodes = 0 ){
@@ -61,9 +61,10 @@ export class MAL {
 		if(this.isTokenExpired()){
 			this.refreshToken();
 		}
+		
 		const url = `${process.env.MAL_BASE_URL}${'/anime/'}${id}${'/my_list_status'}`;
 		const data = new URLSearchParams({status: status, num_watched_episodes: num_watched_episodes.toString()})
-		return axios.put(url, data , {headers: {'Authorization': `Bearer ${savedConfig.access_token}`}});
+		return axios.put(url, data , {headers: {'Authorization': `Bearer ${savedConfig().access_token}`}});
 	}
 
 	getAnimeListByStatus(lists : string){
@@ -73,7 +74,7 @@ export class MAL {
 		const status = { status : lists };
 		const statusParam = new URLSearchParams(status);
 		const url = `${process.env.MAL_BASE_URL}${'/users/@me/animelist?fields=list_status'}&${statusParam.toString()}&limit=1000`;
-		return axios.get(url, {headers: {'Authorization': `Bearer ${savedConfig.access_token}`}});
+		return axios.get(url, {headers: {'Authorization': `Bearer ${savedConfig().access_token}`}});
 	}
 
 	isTokenExpired() : boolean {

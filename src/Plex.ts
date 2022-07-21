@@ -12,7 +12,7 @@ export interface Metadata{
 }
 
 export enum Media{
-    START = 'media.play', //"media.play"
+    START = 'media.play',
     STOP = 'media.stop',
 }
 
