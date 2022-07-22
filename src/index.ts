@@ -1,11 +1,11 @@
-import express, {Express, Request, Response} from 'express';
 import dotenv from 'dotenv';
+dotenv.config();
+import express, {Express, Request, Response} from 'express';
 import multer from 'multer';
 import {IToken, MAL, Query, Anime, findAnime, Status} from './MAL';
 import { Plex, Media, Library } from './Plex';
 import { Anilist } from './Anilist';
 
-dotenv.config();
 const store = multer.memoryStorage();
 const upload = multer({ storage: store });
 const app: Express = express();
@@ -62,18 +62,18 @@ app.get('/search', async (req: Request, res: Response) => {
 	/*const limit = req.query.limit?.toString() || '5';
 	const fields = req.query.fields?.toString() || 'title,id';*/
 
-	anilist.searchAnime(name).then(data => {
-		
-		res.send(data.data);
-	}).catch(err => {
-		res.send(err);
-	})
-	// api.searchAnime(new Query(name, limit, fields)).then(data => {
+	// anilist.searchAnime(name).then(data => {
 		
 	// 	res.send(data.data);
 	// }).catch(err => {
 	// 	res.send(err);
 	// })
+	api.searchAnime(new Query(name/*, limit, fields*/)).then(data => {
+		
+		res.send(data.data);
+	}).catch(err => {
+		res.send(err);
+	})
 
 	
 })
@@ -112,14 +112,14 @@ async function handlePlay(payload: Plex) {
 	console.log({ name });
 	try {
 		const response = await anilist.searchAnime(name);
-		//const response = await api.searchAnime(new Query(name, '10'));
+		
 		const media = response.data.data.Media;
 
-		//const result = findAnime(response.data.data, name);
+		
 		console.log(media)
-		//const { id, title } = result?.node || { id: -1, title: '' };
+		
 		const { idMal, title } = media
-		//console.log(result);
+		
 
 		console.log(name.split(' ')[0])
 		if (name.toLowerCase() === title?.romaji?.toLowerCase() || 
