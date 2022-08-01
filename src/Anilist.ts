@@ -4,6 +4,7 @@ import axios from 'axios';
 const q = `query($name: String){
   Media(search: $name, type: ANIME) {
     idMal
+    episodes
     title {
       romaji
       english
