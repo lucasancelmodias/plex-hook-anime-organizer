@@ -48,7 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.34.0",
     "chai": "^4.3.7",
-    "concurrently": "^7.4.0",
+    "concurrently": "^7.5.0",
     "conventional-changelog-cli": "^2.2.2",
     "coveralls": "^3.0.3",
     "cz-conventional-changelog": "^3.0.2",
