@@ -59,9 +59,10 @@ export class MAL {
 
 	async updateAnimeStatus(id : number, status : string, num_watched_episodes = 0 ){
 
-		if(this.isTokenExpired()){
+		/*if(this.isTokenExpired()){
 			this.refreshToken();
-		}
+		}*/
+		console.log('update Anime Status');
 		const c = await savedConfig();
 		const url = `${process.env.MAL_BASE_URL}${'/anime/'}${id}${'/my_list_status'}`;
 		const data = new URLSearchParams({status: status, num_watched_episodes: num_watched_episodes.toString()})

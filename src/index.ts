@@ -116,21 +116,22 @@ async function handlePlay(payload: Plex) {
 		const media = response.data.data.Media;
 
 		
-		console.log(media)
+		//console.log(media)
 		
 		const { idMal, title, episodes } = media
 		const status = payload.Metadata.index === episodes ? Status.COMPLETED : Status.WATCHING;
 
-		console.log(name.split(' ')[0])
-		if (name.toLowerCase() === title?.romaji?.toLowerCase() || 
+		console.log({title})
+		/*if (name.toLowerCase() === title?.romaji?.toLowerCase() || 
 				title?.romaji?.toLowerCase().includes(name) || 
 				title?.romaji?.toLowerCase().includes(name.split(' ')[0]) || 
 				name.toLowerCase() === title?.english?.toLowerCase() || 
 				title?.english?.toLowerCase().includes(name) || 
 				title?.english?.toLowerCase().includes(name.split(' ')[0])) {
-			const animeStatus = await api.updateAnimeStatus(idMal, status, payload.Metadata.index);
-			console.log('handlePlay data', animeStatus.data);
-		}
+					console.log('handlePlay data', animeStatus.data);
+				}*/
+		const animeStatus = await api.updateAnimeStatus(idMal, status, payload.Metadata.index);
+		console.log({animeStatus});
 
 	} catch (e) {
 		console.log('handlePlay error', e);

@@ -12,14 +12,17 @@ const client = redis.createClient({
 client.connect().then(() => {
 	console.log('connected');
 }).catch((e) => {
-	console.log('redis connection error: ', e)
+	console.log('redis connection error: ', e);
 });
+
+client.on('error', (err) => console.log('Redis error', err));
 
 
 const savedConfig  = async () : Promise<IToken> =>{
 
 	const data = await client.GET('config')
-	//console.log('data', data)
+	console.log('data', data)
+	
 	if(data !== null){
 		file = data
 		console.log('if file is not null')
